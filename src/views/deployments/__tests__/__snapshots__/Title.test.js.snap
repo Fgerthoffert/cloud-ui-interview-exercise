@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test the view title 1`] = `
+<div
+  className="euiPageHeader euiPageHeader--responsive"
+>
+  <div
+    className="euiPageHeaderSection"
+  >
+    <h1
+      className="euiTitle euiTitle--large"
+    >
+      Deployments
+      0
+    </h1>
+  </div>
+</div>
+`;
