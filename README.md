@@ -8,6 +8,7 @@ Instead executing the exercise by replicating what I've seen in the codebase, I 
 
 I decided to go with a view-oriented structure. Each view being as self-contained as possible within its own directory.
 
+```
 src
 |- components: components shared between multiple views, those components are not be connected to a redux state
 |- views: set of first-level application views, typically one folder per route. There would be minimal data wrangling happening in this folder. Each of the views folder would contain a lot of react components with the objective of limiting re-rendering in the event of state change.
@@ -17,8 +18,8 @@ src
 |--|--|--|- index.js: Root of the table component
 |--|--|--|- refresh.js: If the table were to contain a data refresh button, this would be its own class, connected to the corresponding reducers
 |--|--|--|--|- expand: We might want to allow the user to display an expanded view of a particular row, this could go in a dedicated subfolder of the table directory, breaking it down in multiple components depending of the specs.
-
-|- models: folder containing the logic around state management, there would typically be one or more global models to handle states shared between views (such as connected user, API health status, log facilities, ...) and one or more model per view. Most data wrangling/manipulation would be happening here
+|- models: folder containing the logic around state management, there would typically be one or more global models to handle states shared between views (such as connected user, API health status, log facilities, ...) and one or more model per view. Most data wrangling/manipulation would be happening here\
+```
 
 #### Displaying the region
 
