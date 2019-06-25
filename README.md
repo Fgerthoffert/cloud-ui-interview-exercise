@@ -43,7 +43,7 @@ Redux is probably overkill for this exercise since most of the datafetching coul
 I used Rematch (https://github.com/rematch/rematch - https://www.npmjs.com/package/@rematch/core) to facilitate the use of redux. I understand there is a lot of debate around the relavant of using such abstractions layers on top of redux. Two things I find interesting with redux though:
 
 - It does not change the way the components and view are using redux. So moving away from rematch, if there was a need to in the future, would only involve updating the reducers logic, not the actual view layer
-- It's a nice development experience to have the state/reducers logic in the same file.
+- It's a nice development experience to have the state/reducers logic for a single view (or element sharing a similar logic of a single view) in the same file.
 
 ### Layout
 
