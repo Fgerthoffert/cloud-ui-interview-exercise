@@ -9,7 +9,7 @@ Once the basic routing/navigation has been configured, I Focused the effort on f
 
 A similar mechanism is provided today in the ESS deployments view, but the key difference here is that **discovery** is facilitated by providing the actual deployment counts and displaying only available values.
 
-Routing to the deployment page is configured, but no effort was spent on styling the other pages.
+Routing to the deployment page is configured, but no effort was spent on styling the other pages. The various decisions taken here (folder structure, use of an abstraction layer over redux, ...), do not (at all) mean I disagree with how things are being done today, I just tried to do things differently to serve as a vector for discussion/questions in the context of this exercise (versus blindly reproducing what I can see in the repo).
 
 The following has been implemented:
 
@@ -27,6 +27,13 @@ The following has been implemented:
 - Moved the navigation to the top bar to give more real-estate for the facets
 - Linting
 - Some tests
+
+Not covered:
+
+- The styling remain fairly rough
+- No i18n
+- Limited tests
+- No styling in neighboring pages
 
 ### Project structure
 
