@@ -5,7 +5,7 @@ import App from "./App";
 import { init } from "@rematch/core";
 import { Provider } from "react-redux";
 
-import * as models from "./models";
+import * as models from "./models/index.data.js";
 
 // generate Redux store
 const store = init({
