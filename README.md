@@ -34,6 +34,7 @@ Not covered:
 - No i18n
 - Limited tests
 - No styling in neighboring pages
+- Did not setup storybook
 
 ### Project structure
 

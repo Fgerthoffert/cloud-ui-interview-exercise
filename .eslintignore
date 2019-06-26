@@ -1,3 +1,4 @@
 node_modules/
 public/
 tests/
+src/serviceWorker.js

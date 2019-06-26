@@ -6,7 +6,7 @@ import { init } from "@rematch/core";
 import { Provider } from "react-redux";
 
 import NotFound from "../NotFound";
-import * as models from "../../../models";
+import * as models from "../../../models/index.data.js";
 
 const store = init({
   models

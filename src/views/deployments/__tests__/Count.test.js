@@ -4,7 +4,7 @@ import renderer from "react-test-renderer";
 import { init } from "@rematch/core";
 import { Provider } from "react-redux";
 
-import * as models from "../../../models";
+import * as models from "../../../models/index.data.js";
 import Count from "../Count";
 
 const store = init({
