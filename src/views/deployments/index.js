@@ -2,11 +2,20 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { isEmpty } from "lodash";
+import { withRouter } from "react-router-dom";
 
-import { EuiPageContent, EuiPageBody, EuiLoadingSpinner } from "@elastic/eui";
+import {
+  EuiPageContent,
+  EuiPageBody,
+  EuiLoadingSpinner,
+  EuiPageSideBar
+} from "@elastic/eui";
 
-import Title from "./Title";
+import Count from "./Count";
 import Table from "./Table";
+import Layout from "../../components/layout";
+import Facets from "./Facets";
+import Query from "./Query";
 
 class Deployments extends Component {
   /*
@@ -17,6 +26,17 @@ class Deployments extends Component {
     initView();
   }
 
+  componentDidUpdate() {
+    const { updateQuery, location } = this.props;
+    const params = new URLSearchParams(location.search);
+    if (params.get("q") !== null) {
+      const queryUrl = decodeURIComponent(params.get("q"));
+      updateQuery(JSON.parse(queryUrl));
+    } else {
+      updateQuery({});
+    }
+  }
+
   render() {
     const { deployments } = this.props;
 
@@ -24,22 +44,30 @@ class Deployments extends Component {
       The loading spinner below is debatable, loading from local file shouldn't take much time.
     */
     return (
-      <EuiPageBody>
-        <Title />
-        <EuiPageContent>
-          {isEmpty(deployments) ? <EuiLoadingSpinner size="xl" /> : <Table />}
-        </EuiPageContent>
-      </EuiPageBody>
+      <Layout>
+        <EuiPageSideBar>
+          <Facets />
+        </EuiPageSideBar>
+        <EuiPageBody>
+          <EuiPageContent>
+            <Query />
+            {isEmpty(deployments) ? <EuiLoadingSpinner size="xl" /> : <Table />}
+            <Count />
+          </EuiPageContent>
+        </EuiPageBody>
+      </Layout>
     );
   }
 }
 
 Deployments.propTypes = {
-  initView: PropTypes.func.isRequired
+  initView: PropTypes.func.isRequired,
+  updateQuery: PropTypes.func.isRequired
 };
 
 const mapDispatch = dispatch => ({
-  initView: dispatch.deployments.initView
+  initView: dispatch.deployments.initView,
+  updateQuery: dispatch.deployments.updateQuery
 });
 
 const mapState = state => ({
@@ -49,4 +77,4 @@ const mapState = state => ({
 export default connect(
   mapState,
   mapDispatch
-)(Deployments);
+)(withRouter(Deployments));

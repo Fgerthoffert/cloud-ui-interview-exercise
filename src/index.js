@@ -14,6 +14,8 @@ const store = init({
   models
 });
 
+window.store = store;
+
 ReactDOM.render(
   <Provider store={store}>
     <App />

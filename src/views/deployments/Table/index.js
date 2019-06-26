@@ -21,7 +21,7 @@ class Table extends Component {
   }
 
   render() {
-    const { deployments } = this.props;
+    const { deploymentsFiltered } = this.props;
     const columns = [
       {
         field: "displayId",
@@ -77,7 +77,7 @@ class Table extends Component {
     return (
       <React.Fragment>
         <EuiInMemoryTable
-          items={deployments}
+          items={deploymentsFiltered}
           columns={columns}
           pagination={true}
           sorting={true}
@@ -88,11 +88,11 @@ class Table extends Component {
 }
 
 Table.propTypes = {
-  deployments: PropTypes.array.isRequired
+  deploymentsFiltered: PropTypes.array.isRequired
 };
 
 const mapState = state => ({
-  deployments: state.deployments.deployments
+  deploymentsFiltered: state.deployments.deploymentsFiltered
 });
 
 export default connect(

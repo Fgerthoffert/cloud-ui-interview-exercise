@@ -5,7 +5,7 @@ import { init } from "@rematch/core";
 import { Provider } from "react-redux";
 
 import * as models from "../../../models";
-import Title from "../Title";
+import Count from "../Count";
 
 const store = init({
   models
@@ -14,7 +14,7 @@ const store = init({
 test("Test the view title", () => {
   const component = renderer.create(
     <Provider store={store}>
-      <Title />
+      <Count />
     </Provider>
   );
   let tree = component.toJSON();

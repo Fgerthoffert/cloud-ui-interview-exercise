@@ -18,6 +18,7 @@ import {
 
 import NotFound from "./NotFound";
 import Region from "../../components/region";
+import Layout from "../../components/layout";
 
 class Deployment extends Component {
   /*
@@ -35,7 +36,11 @@ class Deployment extends Component {
     const { deployment } = this.props;
 
     if (deployment === undefined) {
-      return <NotFound />;
+      return (
+        <Layout>
+          <NotFound />
+        </Layout>
+      );
     }
 
     /*
@@ -43,83 +48,84 @@ class Deployment extends Component {
     */
     if (isEmpty(deployment)) {
       return (
-        <EuiPageBody>
-          <EuiPageContent>
-            <EuiLoadingSpinner size="xl" />
-          </EuiPageContent>
-        </EuiPageBody>
+        <Layout>
+          <EuiPageBody>
+            <EuiPageContent>
+              <EuiLoadingSpinner size="xl" />
+            </EuiPageContent>
+          </EuiPageBody>
+        </Layout>
       );
     }
 
     /*
       If the view was more to be complex, it will be broken down in multiple component, each accessing their own props through redux
-      In that case, idea is to avoid re-rendering a component multiple times, usually with a structure like this:
-       - Parent => General layout, no props from redux
-       - Children => Components connected with specific redux props, this could eventually be used just to passed down redux props to re-usable components
-       - Re-usable components => Components shared between various views throughout the application
     */
     return (
-      <EuiPageBody>
-        <EuiPageContent>
-          <EuiText size="s">{deployment.displayId}</EuiText>
-          <EuiFlexGroup
-            gutterSize="m"
-            alignItems="center"
-            justifyContent="spaceBetween"
-            direction="row"
-          >
-            <EuiFlexItem grow={false}>
-              <EuiTitle size="l">
-                <h1>{deployment.displayName}</h1>
-              </EuiTitle>
-            </EuiFlexItem>
-            <EuiFlexItem grow={false}>
-              {deployment.healthy ? (
-                <EuiToolTip
-                  position="bottom"
-                  content="Your deployment is healthy"
-                >
-                  <EuiIcon
-                    type="checkInCircleFilled"
-                    color="secondary"
-                    size="xl"
-                  />
-                </EuiToolTip>
-              ) : (
-                <EuiToolTip
-                  position="bottom"
-                  content="Your deployment is unhealthy"
-                >
-                  <EuiIcon
-                    type="crossInACircleFilled"
-                    color="danger"
-                    size="xl"
-                  />
-                </EuiToolTip>
-              )}
-            </EuiFlexItem>
-          </EuiFlexGroup>
-          <EuiHorizontalRule />
-          <EuiFlexGroup>
-            <EuiFlexItem grow={false}>
-              <EuiText size="s">Region: </EuiText>
-            </EuiFlexItem>
-            <EuiFlexItem grow={false}>
-              <Region regionId={deployment.regionId} />
-            </EuiFlexItem>
-          </EuiFlexGroup>
+      <Layout>
+        <EuiPageBody>
+          <EuiPageContent>
+            <EuiText size="s">{deployment.displayId}</EuiText>
+            <EuiFlexGroup
+              gutterSize="m"
+              alignItems="center"
+              justifyContent="spaceBetween"
+              direction="row"
+            >
+              <EuiFlexItem grow={false}>
+                <EuiTitle size="l">
+                  <h1>{deployment.displayName}</h1>
+                </EuiTitle>
+              </EuiFlexItem>
+              <EuiFlexItem grow={false}>
+                {deployment.healthy ? (
+                  <EuiToolTip
+                    position="bottom"
+                    content="Your deployment is healthy"
+                  >
+                    <EuiIcon
+                      type="checkInCircleFilled"
+                      color="secondary"
+                      size="xl"
+                    />
+                  </EuiToolTip>
+                ) : (
+                  <EuiToolTip
+                    position="bottom"
+                    content="Your deployment is unhealthy"
+                  >
+                    <EuiIcon
+                      type="crossInACircleFilled"
+                      color="danger"
+                      size="xl"
+                    />
+                  </EuiToolTip>
+                )}
+              </EuiFlexItem>
+            </EuiFlexGroup>
+            <EuiHorizontalRule />
+            <EuiFlexGroup>
+              <EuiFlexItem grow={false}>
+                <EuiText size="s">Region: </EuiText>
+              </EuiFlexItem>
+              <EuiFlexItem grow={false}>
+                <Region regionId={deployment.regionId} />
+              </EuiFlexItem>
+            </EuiFlexGroup>
 
-          <EuiText size="s">
-            More layout elements displaying details about the deployment
-          </EuiText>
-        </EuiPageContent>
-      </EuiPageBody>
+            <EuiText size="s">
+              More layout elements displaying details about the deployment
+            </EuiText>
+          </EuiPageContent>
+        </EuiPageBody>
+      </Layout>
     );
   }
 }
 
 Deployment.propTypes = {
   initView: PropTypes.func.isRequired,
+  match: PropTypes.object.isRequired,
   deployment: PropTypes.object
 };
 
