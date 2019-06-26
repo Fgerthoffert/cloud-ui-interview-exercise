@@ -2,14 +2,14 @@
 
 ### TL/DR;
 
-Once the basic routing/navigation has been configured I Focused the effort on facilitating search and navigation across the potentially 5100 deployments (totalCount). The objective is to facilitate discovering and filtering, answering in a single glance, questions such as:
+Once the basic routing/navigation has been configured, I Focused the effort on facilitating search and navigation across the potentially 5100 deployments (totalCount). The objective here was to facilitate discovering and filtering, answering in a single glance, questions such as:
 
 - [Breakdown per region of the unhealthy snapshots](http://localhost:3000/deployments?q=%7B%22snapshots.healthy%22%3A%7B%22%24eq%22%3Afalse%7D%7D) ?
 - [What is the conditions of the AP regions](http://localhost:3000/deployments?q=%7B%22regionId%22%3A%7B%22%24in%22%3A%5B%22ap-southeast-2%22%2C%22ap-northeast-1%22%2C%22ap-southeast-1%22%5D%7D%7D)?
 
-A similar mechanism is provided today in the ESS deployments view, but the key difference here is that discovery is facilitated by providing the actual deployment counts and displaying only available values.
+A similar mechanism is provided today in the ESS deployments view, but the key difference here is that **discovery** is facilitated by providing the actual deployment counts and displaying only available values.
 
-Routing to the deployment page is configured, but no effort was spent on styling this page.
+Routing to the deployment page is configured, but no effort was spent on styling the other pages.
 
 The following has been implemented:
 
@@ -24,6 +24,7 @@ The following has been implemented:
   - Facets are defined in an array, can be extended without modifying the logic
   - Support two types of facets: text and boolean, could be extended easily to support numbers (sliders ?) or date
 - Default placeholder for the deployment page
+- Moved the navigation to the top bar to give more real-estate for the facets
 - Linting
 - Some tests
 
