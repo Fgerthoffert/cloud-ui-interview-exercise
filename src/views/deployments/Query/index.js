@@ -54,7 +54,7 @@ class Query extends Component {
         {activeValues.map(filter => (
           <EuiFlexItem
             grow={false}
-            key={filter.facet.id + filter.value.value}
+            key={filter.facet.key + filter.value.value}
             style={{ marginLeft: "0px" }}
           >
             <Badge
