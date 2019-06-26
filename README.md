@@ -1,53 +1,54 @@
 ## Implementation
 
-### Intro
+### TL/DR;
 
-Instead executing the exercise by replicating what I've seen in the codebase, I made the decision to consider it as a project starting from scratch, taking some decisions (detailed below) that can be used as a base for our discussion.
+Once the basic routing/navigation has been configured I Focused the effort on facilitating search and navigation across the potentially 5100 deployments (totalCount). The objective is to facilitate discovering and filtering, answering in a single glance, questions such as:
+
+- [Breakdown per region of the unhealthy snapshots](http://localhost:3000/deployments?q=%7B%22snapshots.healthy%22%3A%7B%22%24eq%22%3Afalse%7D%7D) ?
+- [What is the conditions of the AP regions](http://localhost:3000/deployments?q=%7B%22regionId%22%3A%7B%22%24in%22%3A%5B%22ap-southeast-2%22%2C%22ap-northeast-1%22%2C%22ap-southeast-1%22%5D%7D%7D)?
+
+A similar mechanism is provided today in the ESS deployments view, but the key difference here is that discovery is facilitated by providing the actual deployment counts and displaying only available values.
+
+Routing to the deployment page is configured, but no effort was spent on styling this page.
+
+The following has been implemented:
+
+- Directory structure (detailed below)
+- Navigation across pages using react-router (no hard reload)
+- Basic redux state management
+- Error page if navigating to an non-existing page
+- Different error page with if accessing a [non-existing deployment](http://localhost:3000/deployment/a3443d37-faca-5595-87b9-5a4518b0a620efefe)
+- Deployments list page with
+  - Facets filtering with aggregation
+  - Basic query mechanism (through the URL, allowing the page to be bookmarker)
+  - Facets are defined in an array, can be extended without modifying the logic
+  - Support two types of facets: text and boolean, could be extended easily to support numbers (sliders ?) or date
+- Default placeholder for the deployment page
+- Linting
+- Some tests
 
 ### Project structure
 
 I decided to go with a view-oriented structure. Each view being as self-contained as possible within its own directory.
 
 ```
-src
-|- components: components shared between multiple views, those components are not be connected to a redux state
-|- views: set of first-level application views, typically one folder per route. There would be minimal data wrangling happening in this folder. Each of the views folder would contain a lot of react components with the objective of limiting re-rendering in the event of state change.
-|--|- deployments: The deployments view folder
-|--|--|- index.js: Ideally just the overall layout and a simple view init called by componentDidMount()
-|--|--|- table: Folder containing the table to be rendered
-|--|--|--|- index.js: Root of the table component
-|--|--|--|- refresh.js: If the table were to contain a data refresh button, this would be its own class, connected to the corresponding reducers
-|--|--|--|--|- expand: We might want to allow the user to display an expanded view of a particular row, this could go in a dedicated subfolder of the table directory, breaking it down in multiple components depending of the specs.
-|- models: folder containing the logic around state management, there would typically be one or more global models to handle states shared between views (such as connected user, API health status, log facilities, ...) and one or more model per view. Most data wrangling/manipulation would be happening here\
+src/
+├── components/                 # Contains elements shared between multiple views, no redux state here
+├── models/                     # Folder containing state management with one or more per view and potentially one for the entire app (for things such as connected user, ...)
+├── utils/                      # Various utility functions
+├── views/                      # First-level application views, typically one per route.
+│   ├── Deployments/            # An example of a first-level application view.
+│   │   ├── Facets/             # Facets are potentially complex and broken down in multiple components, so they get their own folder
+│   │   ├── Count.js            # This is a simple enough component displayed on the main view, it doesn't go into its own folder
+│   │   └── ...                 # more
 ```
-
-#### Displaying the region
-
-I used the region ID as an illustration of the project structure.
-
-The 2 views are both displaying the region, with slight variation:
-
-- In the deployments table, we display the region, with a tooltip displaying how many deployments are in that region
-- In the deployment view, we only display the region
-
-A region component has been created in `components/region` and contains the common/standardized way of displaying a region for the entire app. This component receive `regionId` as a prop, and display a small "world" icon next to the ID. Would could have imagined passing an object containing things like actual location, provider, ... to the component if those were made available.
-
-The deployment view simply call that reusable region component directly.
-
-The deployments view, renders an intermediary component `RegionTooltip`, which fetches from the redux store, the number of deployments happening in that particular region and display that using a tooltip. It then renders the reusable region component.
 
 ### Redux
 
-Redux is probably overkill for this exercise since most of the datafetching could simply happen in the componentDidMount() of the root view.
+I used Rematch (https://github.com/rematch/rematch - https://www.npmjs.com/package/@rematch/core) to facilitate the use of redux. I understand there is a lot of debate around the relavant of using such abstractions layers on top of redux. But for an exercise such as this one, makes everything much faster to develop. Two things I find interesting with rematch:
 
-I used Rematch (https://github.com/rematch/rematch - https://www.npmjs.com/package/@rematch/core) to facilitate the use of redux. I understand there is a lot of debate around the relavant of using such abstractions layers on top of redux. Two things I find interesting with redux though:
-
-- It does not change the way the components and view are using redux. So moving away from rematch, if there was a need to in the future, would only involve updating the reducers logic, not the actual view layer
+- It does not change the way the components and view are using redux. So if there is a need to move away from rematch, this would only involve updating the reducers logic, not the actual view layer.
 - It's a nice development experience to have the state/reducers logic for a single view (or element sharing a similar logic of a single view) in the same file.
-
-### Layout
-
-I didn't answer (yet) the core of the exercise which is around displaying the actual data in a user-friendly manner.
 
 ### Tests
 
