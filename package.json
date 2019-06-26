@@ -7,21 +7,28 @@
     "@elastic/eui": "^7.2.0",
     "@rematch/core": "^1.1.0",
     "axios": "^0.19.0",
+    "eslint": "^6.0.1",
+    "eslint-plugin-jest": "^22.7.1",
+    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-react": "^7.14.2",
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
     "node-sass": "^4.11.0",
+    "prettier": "^1.18.2",
     "prop-types": "^15.7.2",
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
     "react-redux": "^7.1.0",
     "react-router-dom": "^5.0.1",
-    "react-scripts": "2.1.5"
+    "react-scripts": "2.1.5",
+    "sift": "^8.5.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint ."
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -33,6 +40,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "eslint-config-prettier": "^6.0.0",
     "react-test-renderer": "^16.8.6"
   }
 }

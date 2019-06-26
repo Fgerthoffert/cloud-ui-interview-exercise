@@ -23,7 +23,7 @@ class Header extends Component {
             <EuiHeaderLogo href="/" iconType={"logoElastic"} />
           </EuiHeaderSectionItem>
           {menus.map(menu => (
-            <Menus {...menu} />
+            <Menus key={menu.key} {...menu} />
           ))}
         </EuiHeaderSection>
       </EuiHeader>

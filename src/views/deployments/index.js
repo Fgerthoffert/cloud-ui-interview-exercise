@@ -62,7 +62,9 @@ class Deployments extends Component {
 
 Deployments.propTypes = {
   initView: PropTypes.func.isRequired,
-  updateQuery: PropTypes.func.isRequired
+  updateQuery: PropTypes.func.isRequired,
+  location: PropTypes.object.isRequired,
+  deployments: PropTypes.array.isRequired
 };
 
 const mapDispatch = dispatch => ({

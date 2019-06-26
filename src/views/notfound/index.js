@@ -21,7 +21,9 @@ class NotFound extends Component {
             </EuiTitle>
             <EuiHorizontalRule />
 
-            <EuiText size="s">Default "404-like" page, not styled</EuiText>
+            <EuiText size="s">
+              Default &ldquo;404-like&ldquo; page, not styled
+            </EuiText>
           </EuiPageContent>
         </EuiPageBody>
       </Layout>
