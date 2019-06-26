@@ -1,12 +1,16 @@
+/*
+ Upon receiving a facet and its selected/clicked value, returns an updated sourceQuery
+*/
 export const addRemoveFromQuery = (valueName, facet, sourceQuery) => {
   let modifiedQuery = { ...sourceQuery };
 
   if (facet.type === "text") {
     // Mutate the modifiedQuery to the corresponding state
     if (modifiedQuery[facet.key] === undefined) {
+      // If the facet is not present in the query, we simply add it with its value
       modifiedQuery[facet.key] = { $in: [valueName] };
     } else if (modifiedQuery[facet.key]["$in"].includes(valueName)) {
-      // Remove element from array
+      // If the facet is present in the query and if the value is already present we remove it from the query
       modifiedQuery[facet.key]["$in"] = modifiedQuery[facet.key]["$in"].filter(
         i => i !== valueName
       );
@@ -14,6 +18,7 @@ export const addRemoveFromQuery = (valueName, facet, sourceQuery) => {
         delete modifiedQuery[facet.key];
       }
     } else {
+      // Otherwise, add the value to the query
       modifiedQuery[facet.key]["$in"].push(valueName);
     }
   } else if (facet.type === "bool") {

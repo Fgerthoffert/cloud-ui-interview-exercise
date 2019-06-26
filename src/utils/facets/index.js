@@ -23,7 +23,7 @@ const buildFacetValues = (query, deployments, facet) => {
   const statesGroup = groupBy(filteredDeployments, facet.key);
   return Object.entries(statesGroup).map(([name, content]) => {
     return {
-      // Booleans automatically get converted to a string by groupBy, this gets it back to an actuall boolean
+      // Booleans automatically get converted to a string by groupBy, this gets it back to an actual boolean
       value: facet.type !== "bool" ? name : name === "true",
       deployments: Object.values(content),
       count: Object.values(content).length
